@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -41,10 +40,10 @@ button{padding:12px 18px;margin:5px;border:none;border-radius:8px;color:#fff;fon
 </div>
 <script>
 const d={
-1:{c:"EXP-1170 // HUGGY WUGGY",h:"יומן אבטחה: האגי וואגי",p:"ניסוי 1170 תוכנן להיות קמע המפעל, אך בשנת 1992 נמלט והפך לצייד קטלני בחשיכה."},
-2:{c:"EXP-1222 // MOMMY LONG LEGS",h:"הקלטה חסויה: מאמי לונג לגס",p:"מפגינה חיבה לילדים אך תוקפנות קיצונית כלפי כל מבוגר שלובש חלוק מעבדה."},
-3:{c:"EXP-1188 // CATNAP",h:"אזהרה: קאטנאפ והגז האדום",p:"הגז האדום מניסוי 1188 גורם להזיות קשות. סוגד באדיקות לאב-טיפוס 1006."},
-4:{c:"EVENT // THE HOUR OF JOY",h:"שעת השמחה - 8 באוגוסט 1995",p:"בפקודת הפרוטוטייפ, כל הצעצועים התמרדו בו זמנית ונעלו את שערי המפעל מבפנים."}
+1:{c:"EXP-1170 // HUGGY WUGGY",h:"יומן אבטחה: האגי וואגי",p:"ניסוי 1170 תוכנן להיות קמע המפעל, אך בשנת 1992 נמלט והפך לצייד קטלני בחשיכה.",en:"Security log. Experiment 1170, Huggy Wuggy, escaped the facility in 1992 and became a lethal hunter in the dark."},
+2:{c:"EXP-1222 // MOMMY LONG LEGS",h:"הקלטה חסויה: מאמי לונג לגס",p:"מפגינה חיבה לילדים אך תוקפנות קיצונית כלפי כל מבוגר שלובש חלוק מעבדה.",en:"Classified tape. Experiment 1222, Mommy Long Legs, shows extreme hostility toward any adult wearing a lab coat."},
+3:{c:"EXP-1188 // CATNAP",h:"אזהרה: קאטנאפ והגז האדום",p:"הגז האדום מניסוי 1188 גורם להזיות קשות. סוגד באדיקות לאב-טיפוס 1006.",en:"Safety warning. Experiment 1188, CatNap, produces a red gas causing severe nightmares. He worships the Prototype."},
+4:{c:"EVENT // THE HOUR OF JOY",h:"שעת השמחה - 8 באוגוסט 1995",p:"בפקודת הפרוטוטייפ, כל הצעצועים התמרדו בו זמנית ונעלו את שערי המפעל מבפנים.",en:"August 8th, 1995. The Hour of Joy. On the Prototype's command, every toy in Playtime Co. turned against the staff."}
 };
 function beep(){
 const a=new(window.AudioContext||window.webkitAudioContext)();
@@ -60,8 +59,8 @@ document.getElementById('p').innerText=d[n].p;
 beep();
 if('speechSynthesis'in window){
 window.speechSynthesis.cancel();
-const u=new SpeechSynthesisUtterance(d[n].h+". "+d[n].p);
-u.lang='he-IL';u.rate=0.95;u.pitch=0.85;
+const u=new SpeechSynthesisUtterance(d[n].en);
+u.lang='en-US';u.rate=0.9;u.pitch=0.8;
 window.speechSynthesis.speak(u);
 }
 }

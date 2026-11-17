@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -12,22 +13,24 @@ h1{color:#38bdf8;font-size:2.5em;text-shadow:0 0 15px #3b82f6}
 h2{color:#facc15;margin:10px 0}
 button{padding:12px 18px;margin:5px;border:none;border-radius:8px;color:#fff;font-weight:bold;cursor:pointer;font-size:1em}
 .b1{background:#1d4ed8}.b2{background:#be185d}.b3{background:#6d28d9}.b4{background:#b91c1c}
+.stop{background:#374151;margin-top:10px;font-size:0.9em}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;max-width:850px;margin:25px auto}
 .card{background:#111827;padding:15px;border-radius:10px;border-top:4px solid #ef4444}
 </style>
 </head>
 <body>
 <h1>PLAYTIME CO. ARCHIVE</h1>
-<p>הארכיון הסודי של מפעל הצעצועים — בחר קלטת VHS להפעלה</p>
+<p>הארכיון הסודי של מפעל הצעצועים — לחץ על קלטת VHS להפעלה קולית</p>
 <div class="box">
 <button class="b1" onclick="t(1)">🟦 קלטת כחולה</button>
 <button class="b2" onclick="t(2)">🟪 קלטת ורודה</button>
 <button class="b3" onclick="t(3)">🟣 קלטת סגולה</button>
 <button class="b4" onclick="t(4)">🟥 קלטת אדומה</button>
 <div class="tv">
-<div class="rec" id="c">▶ PLAY | VHS-HQ</div>
+<div class="rec" id="c">▶ PLAY | VHS-HQ 🔊</div>
 <h2 id="h">ממתין לקלטת...</h2>
-<p id="p">לחץ על אחת הקלטות למעלה כדי לחשוף את התיק הסודי.</p>
+<p id="p">לחץ על אחת הקלטות למעלה כדי לשמוע ולצפות בתיק הסודי.</p>
+<button class="stop" onclick="stopAudio()">⏹ עצור שמע</button>
 </div>
 </div>
 <div class="grid">
@@ -38,12 +41,30 @@ button{padding:12px 18px;margin:5px;border:none;border-radius:8px;color:#fff;fon
 </div>
 <script>
 const d={
-1:{c:"EXP-1170 // HUGGY WUGGY",h:"יומן אבטחה: האגי וואגי",p:"ניסוי 1170 תוכנן להיות קמע המפעל, אך ב-1992 נמלט והפך לצייד קטלני בחשיכה."},
+1:{c:"EXP-1170 // HUGGY WUGGY",h:"יומן אבטחה: האגי וואגי",p:"ניסוי 1170 תוכנן להיות קמע המפעל, אך בשנת 1992 נמלט והפך לצייד קטלני בחשיכה."},
 2:{c:"EXP-1222 // MOMMY LONG LEGS",h:"הקלטה חסויה: מאמי לונג לגס",p:"מפגינה חיבה לילדים אך תוקפנות קיצונית כלפי כל מבוגר שלובש חלוק מעבדה."},
 3:{c:"EXP-1188 // CATNAP",h:"אזהרה: קאטנאפ והגז האדום",p:"הגז האדום מניסוי 1188 גורם להזיות קשות. סוגד באדיקות לאב-טיפוס 1006."},
-4:{c:"EVENT // THE HOUR OF JOY",h:"שעת השמחה - 08.08.1995",p:"בפקודת הפרוטוטייפ, כל הצעצועים התמרדו בו-זמנית ונעלו את שערי המפעל מבפנים."}
+4:{c:"EVENT // THE HOUR OF JOY",h:"שעת השמחה - 8 באוגוסט 1995",p:"בפקודת הפרוטוטייפ, כל הצעצועים התמרדו בו זמנית ונעלו את שערי המפעל מבפנים."}
 };
-function t(n){document.getElementById('c').innerText=d[n].c;document.getElementById('h').innerText=d[n].h;document.getElementById('p').innerText=d[n].p;}
+function beep(){
+const a=new(window.AudioContext||window.webkitAudioContext)();
+const o=a.createOscillator(),g=a.createGain();
+o.type='sawtooth';o.frequency.value=160;g.gain.value=0.15;
+o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+0.25);
+}
+function stopAudio(){if('speechSynthesis'in window)window.speechSynthesis.cancel();}
+function t(n){
+document.getElementById('c').innerText=d[n].c+" 🔊";
+document.getElementById('h').innerText=d[n].h;
+document.getElementById('p').innerText=d[n].p;
+beep();
+if('speechSynthesis'in window){
+window.speechSynthesis.cancel();
+const u=new SpeechSynthesisUtterance(d[n].h+". "+d[n].p);
+u.lang='he-IL';u.rate=0.95;u.pitch=0.85;
+window.speechSynthesis.speak(u);
+}
+}
 </script>
 </body>
 </html>
